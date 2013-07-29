@@ -22,7 +22,7 @@ function jsonError() {
 	echo 'JSON error';
 	switch (json_last_error()) {
 		case JSON_ERROR_NONE:
-			echo ' - No errors';
+			echo ' - No errors (no json data)';
 		break;
 		case JSON_ERROR_DEPTH:
 			echo ' - Maximum stack depth exceeded';

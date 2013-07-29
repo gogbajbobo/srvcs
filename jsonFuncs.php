@@ -110,7 +110,7 @@ function xml2json($sxe) {
 		}
 		
 		$sol['data'] = $data;		
-		echo json_encode($sol);
+		return json_encode($sol);
 		
 	} else {
 		echo 'wrong xml structure';

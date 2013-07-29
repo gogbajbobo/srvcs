@@ -22,7 +22,7 @@ if ($xmldata) {
 	//echo $xmldoc->saveXML();
 
 	header('Content-type: application/json');
-	xml2json(simplexml_import_dom($xmldoc));
+	echo xml2json(simplexml_import_dom($xmldoc));
 	
 } else {	
 	echo ' - Fail';	

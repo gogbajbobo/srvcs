@@ -44,6 +44,7 @@ if (isset($_GET['doi'])) {
 		echo 'COINS: <br />';
 
 		$authors = '';
+		$authors_count = 0;
 
 		foreach ($coins as $coin) {
 
@@ -80,6 +81,7 @@ if (isset($_GET['doi'])) {
 			 	case 'rft.au':
 			 		$value_title = 'Author: ';
 			 		$authors == '' ? $authors = $coin[1] : $authors = $authors . ', ' . $coin[1];
+			 		$authors_count = $authors_count + 1;
 			 		break;
 			 	default:
 			 		break;
@@ -94,7 +96,8 @@ if (isset($_GET['doi'])) {
 		}
 
 		if ($authors != '') {
-			echo '<b>Authors: </b>' . $authors . '<br /><br />';
+			echo '<b>Authors: </b>' . $authors . '<br />';
+			echo '<b>Number of authors: </b>' . $authors_count . '<br /><br />';
 		}
 
 		// echo '<br /> var_dump: <br />';

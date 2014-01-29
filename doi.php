@@ -17,31 +17,31 @@ if (isset($_GET['doi'])) {
 
 	if (is_null($json[0])) {
 
-		echo 'No DOI data </br></br>';
+		echo 'No DOI data <br /><br />';
 
 	} else {
 
 		$doi = $json[0]->{'doi'};
-		echo 'DOI URL: ' . $doi . '</br></br>';
+		echo 'DOI URL: <a href="' . $doi . '">' . $doi .'</a><br /><br />';
 
 		// $score = $json[0]->{'score'};
-		// echo 'SCORE: ' . $score . '</br></br>';
+		// echo 'SCORE: ' . $score . '<br /><br />';
 
 		// $normalized_score = $json[0]->{'normalizedScore'};
-		// echo 'NORMALIZED SCORE: ' . $normalized_score . '</br></br>';
+		// echo 'NORMALIZED SCORE: ' . $normalized_score . '<br /><br />';
 
 		// $title = $json[0]->{'title'};
-		// echo 'TITLE: ' . $title . '</br></br>';
+		// echo 'TITLE: ' . $title . '<br /><br />';
 
 		$full_citation = $json[0]->{'fullCitation'};
-		echo 'FULL CITATION: ' . $full_citation . '</br></br>';
+		echo 'FULL CITATION: ' . $full_citation . '<br /><br />';
 
 		// $year = $json[0]->{'year'};
-		// echo 'YEAR: ' . $year . '</br></br>';
+		// echo 'YEAR: ' . $year . '<br /><br />';
 
 		$coins = html_entity_decode(urldecode($json[0]->{'coins'}));
 		$coins = explode('&', $coins);
-		echo 'COINS: </br>';
+		echo 'COINS: <br />';
 
 		$authors = '';
 
@@ -50,6 +50,7 @@ if (isset($_GET['doi'])) {
 			// echo $coin . $new_line;
 			$coin = explode('=', $coin);
 			$value_title = '';
+			$coin[1] = strip_tags($coin[1]);
 
 			switch ($coin[0]) {
 			 	case 'rft.atitle':
@@ -85,7 +86,7 @@ if (isset($_GET['doi'])) {
 			 } 
 
 			if ($value_title != '' && $value_title != 'Author: ') {
-				echo '<b>' . $value_title . '</b>' . $coin[1] . '</br>';
+				echo '<b>' . $value_title . '</b>' . $coin[1] . '<br />';
 			}
 
 
@@ -93,12 +94,12 @@ if (isset($_GET['doi'])) {
 		}
 
 		if ($authors != '') {
-			echo '<b>Authors: </b>' . $authors . '</br></br>';
+			echo '<b>Authors: </b>' . $authors . '<br /><br />';
 		}
 
-		// echo '</br> var_dump: </br>';
-		// var_dump($json);
-		// echo '</br></br>';
+		// echo '<br /> var_dump: <br />';
+		// var_dump($result);
+		// echo '<br /><br />';
 
 	}
 

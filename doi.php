@@ -8,7 +8,7 @@ echo "<html>
 		</head>
 		<body>";
 
-if (isset($_GET['doi'])) {
+if (isset($_GET['doi']) && !empty($_GET['doi'])) {
 
 	$crossref_uri = 'http://search.crossref.org';
 	$crossref_url = $crossref_uri . '/dois?q=' . trim($_GET['doi']);

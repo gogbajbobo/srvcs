@@ -6,14 +6,40 @@ $( document ).ready(function() {
 
 function doc_ready() {
 
-	form_submit();
+	form_submit(insert_form());
+	$('body').append($('<span />').addClass('info'));
 
 }
 
-function form_submit() {
+function insert_form() {
 
-	$( 'form#doi' ).submit(function( event ) {
-		// alert('form_submit' + event.target);
+	form = $('<form />').attr('id', 'doi_form');
+	$('body').append(form);
+	$(form).append(
+		$('<label />').append(
+			'DOI:',
+			$('<input />').attr({
+				type: 'text',
+				name: 'q'
+			})
+		),
+		$('<input />').attr({
+			type: 'hidden',
+			name: 'header',
+			value: 'true'
+		}),
+		$('<input />').attr({
+			type: 'submit',
+			value: 'OK'
+		})
+	);
+	return form;
+
+}
+
+function form_submit(form) {
+
+	$(form).submit(function(event) {
 		event.preventDefault();
 		send_form(this);
 	});

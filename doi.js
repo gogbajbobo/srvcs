@@ -48,20 +48,26 @@ function form_submit(form) {
 
 function send_form(form) {
 
-	// alert($(form).serialize());
+	$.ajax({
 
-	var request = $.ajax({
 		url: 'http://search.crossref.org/dois?',
 		type: 'GET',
-		data: $(form).serialize()
-	});
+		dataType: 'text',
+		data: $(form).serialize(),
 
-	request.done(function(){
-	    $( 'span.info' ).text( request.responseText );
-	});
+		success: function(data){
+		    $('span.info').text(data);
+		}
 
-	request.fail(function(){
-	    $( 'span.info' ).text( 'request.fail' );		
-	});
+	})
+		.done(function(){
+			// alert('done');
+		})
+		
+		.fail(function(jqXHR, textStatus, errorThrown){
+
+				$('span.info').text(textStatus + errorThrown);
+
+		});
 
 }

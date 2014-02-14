@@ -11,35 +11,43 @@ echo "<html>
 if (isset($_GET['doi']) && !empty($_GET['doi'])) {
 
 	$crossref_uri = 'http://search.crossref.org';
-	$crossref_url = $crossref_uri . '/dois?q=' . trim($_GET['doi']);
+	$crossref_url = $crossref_uri . '/dois?q=' . trim($_GET['doi'] . '&header=true');
 	$result = file_get_contents($crossref_url);
 	$json = json_decode(utf8_encode($result));
 
-	if (is_null($json[0])) {
+	$totalResults = $json->totalResults;
+
+	if ($totalResults == 0) {
 
 		echo 'No DOI data <br /><br />';
 
+	} elseif ($totalResults != 1) {
+
+		echo 'Wrong DOI, multiple results recieved <br /><br />';
+
 	} else {
 
-		$doi = $json[0]->{'doi'};
+		$item = $json->items[0];
+
+		$doi = $item->doi;
 		echo 'DOI URL: <a href="' . $doi . '">' . $doi .'</a><br /><br />';
 
-		// $score = $json[0]->{'score'};
+		// $score = $item->{'score'};
 		// echo 'SCORE: ' . $score . '<br /><br />';
 
-		// $normalized_score = $json[0]->{'normalizedScore'};
+		// $normalized_score = $item->{'normalizedScore'};
 		// echo 'NORMALIZED SCORE: ' . $normalized_score . '<br /><br />';
 
-		// $title = $json[0]->{'title'};
+		// $title = $item->{'title'};
 		// echo 'TITLE: ' . $title . '<br /><br />';
 
-		$full_citation = $json[0]->{'fullCitation'};
+		$full_citation = $item->fullCitation;
 		echo 'FULL CITATION: ' . $full_citation . '<br /><br />';
 
-		// $year = $json[0]->{'year'};
+		// $year = $item->{'year'};
 		// echo 'YEAR: ' . $year . '<br /><br />';
 
-		$coins = html_entity_decode(urldecode($json[0]->{'coins'}));
+		$coins = html_entity_decode(urldecode($item->coins));
 		$coins = explode('&', $coins);
 		echo 'COINS: <br />';
 

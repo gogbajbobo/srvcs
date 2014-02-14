@@ -52,11 +52,17 @@ function send_form(form) {
 
 		url: 'http://search.crossref.org/dois?',
 		type: 'GET',
-		dataType: 'text',
+		dataType: 'json',
 		data: $(form).serialize(),
 
 		success: function(data){
-		    $('span.info').text(data);
+
+			if (data.totalResults != 1) {
+				$('span.info').text('wrong doi, totalResults: ' + data.totalResults);
+			} else {
+				$('span.info').text('items: ' + data.items[0].doi);
+			}
+
 		}
 
 	})

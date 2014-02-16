@@ -88,6 +88,7 @@ function show_result_form(data) {
 	form = $('<form />').attr('id', 'result_form');
 	$('body').append(form);
 	$(form).append(result_inputs(data));
+	$('<br />').insertAfter('label');
 
 }
 
@@ -95,6 +96,8 @@ function result_inputs(data) {
 
 	var item = data.items[0];
 	var coins = parse_coins(item.coins);
+	console.log(coins);
+
 	var inputs =
 		[
 			$('<label />').append(
@@ -107,11 +110,11 @@ function result_inputs(data) {
 			),
 
 			$('<label />').append(
-				'Article title: ' + data.items[0].coins,
+				'Article title: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'doi',
-					value: data.items[0].coins
+					name: 'atitle',
+					value: coins['rft.atitle']
 				})
 			),
 
@@ -119,8 +122,8 @@ function result_inputs(data) {
 				'Journal title: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'doi',
-					value: data.items[0].doi
+					name: 'jtitle',
+					value: coins['rft.jtitle']
 				})
 			),
 
@@ -128,8 +131,35 @@ function result_inputs(data) {
 				'Date: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'doi',
-					value: data.items[0].doi
+					name: 'date',
+					value: coins['rft.date']
+				})
+			),
+
+			$('<label />').append(
+				'Issue: ',
+				$('<input />').attr({
+					type: 'text',
+					name: 'issue',
+					value: coins['rft.issue']
+				})
+			),
+
+			$('<label />').append(
+				'Volume: ',
+				$('<input />').attr({
+					type: 'text',
+					name: 'volume',
+					value: coins['rft.volume']
+				})
+			),
+
+			$('<label />').append(
+				'Start page: ',
+				$('<input />').attr({
+					type: 'text',
+					name: 'spage',
+					value: coins['rft.spage']
 				})
 			),
 
@@ -137,8 +167,8 @@ function result_inputs(data) {
 				'Genre: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'doi',
-					value: data.items[0].doi
+					name: 'genre',
+					value: coins['rft.genre']
 				})
 			),
 
@@ -146,8 +176,8 @@ function result_inputs(data) {
 				'Authors: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'doi',
-					value: data.items[0].doi
+					name: 'authors',
+					value: coins['authors']
 				})
 			),
 
@@ -155,8 +185,8 @@ function result_inputs(data) {
 				'Number of authors: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'doi',
-					value: data.items[0].doi
+					name: 'number_of_authors',
+					value: coins['number_of_authors']
 				})
 			),
 
@@ -176,32 +206,32 @@ function parse_coins(coins) {
 	console.log($.now());
 
 	var result_array = {};
-	var coins_array = coins.split('&');
+	var coins_array = coins.split('&amp;');
 	var number_of_authors = 0;
 	var authors = '';
 
 	$(coins_array).each(function(index) {
 
-		var coin = this.replace('amp;','');
+		var coin = decodeURIComponent(this);
 		var coin_parts = coin.split('=');
+		coin_parts[1] = coin_parts[1].split('+').join(' ');
 
 		if (coin_parts[0] == 'rft.au') {
 
+			authors = number_of_authors ? authors + ',' + coin_parts[1] : coin_parts[1];
 			number_of_authors = number_of_authors + 1;
 			coin_parts[0] = coin_parts[0] + number_of_authors;
-			authors = authors + ',' + coin_parts[1];
 
 		}
 
 		result_array[coin_parts[0]] = coin_parts[1];
-
-		console.log(index + ': ' + coin_parts[0] + ' / ' + coin_parts[1]);
+		// console.log(index + ': ' + coin_parts[0] + ' / ' + coin_parts[1]);
 
 	});
 
 	result_array['authors'] = authors;
 	result_array['number_of_authors'] = number_of_authors;
-	console.log(result_array);
+	// console.log(result_array);
 	return result_array;
 
 }

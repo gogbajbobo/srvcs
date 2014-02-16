@@ -170,6 +170,15 @@ function result_inputs(data) {
 			),
 
 			$('<label />').append(
+				'End page: ',
+				$('<input />').attr({
+					type: 'text',
+					name: 'epage',
+					value: coins['rft.epage']
+				})
+			),
+
+			$('<label />').append(
 				'Genre: ',
 				$('<input />').attr({
 					type: 'text',

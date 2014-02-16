@@ -87,8 +87,14 @@ function show_result_form(data) {
 	$('body').empty();
 	form = $('<form />').attr('id', 'result_form');
 	$('body').append(form);
+
 	$(form).append(result_inputs(data));
 	$('<br />').insertAfter('label');
+	$('input:text').each(function(){
+		$(this).attr({
+			size: this.value.length
+		})
+	});
 
 }
 

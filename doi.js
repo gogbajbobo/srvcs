@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
 
     doc_ready();
 
@@ -173,16 +173,36 @@ function result_inputs(data) {
 
 function parse_coins(coins) {
 
-	var result_array;
-	var coins_array = coins.split('&');
-	console.log(coins_array[0]);
-	coins_array.each(function( index ) {
-  console.log( index + ": " + $( this ).text() );
-});
+	console.log($.now());
 
-	// coins_array.foreach(function(name){
-	// 	console.log('test');
-	// });
+	var result_array = {};
+	var coins_array = coins.split('&');
+	var number_of_authors = 0;
+	var authors = '';
+
+	$(coins_array).each(function(index) {
+
+		var coin = this.replace('amp;','');
+		var coin_parts = coin.split('=');
+
+		if (coin_parts[0] == 'rft.au') {
+
+			number_of_authors = number_of_authors + 1;
+			coin_parts[0] = coin_parts[0] + number_of_authors;
+			authors = authors + ',' + coin_parts[1];
+
+		}
+
+		result_array[coin_parts[0]] = coin_parts[1];
+
+		console.log(index + ': ' + coin_parts[0] + ' / ' + coin_parts[1]);
+
+	});
+
+	result_array['authors'] = authors;
+	result_array['number_of_authors'] = number_of_authors;
+	console.log(result_array);
+	return result_array;
 
 }
 

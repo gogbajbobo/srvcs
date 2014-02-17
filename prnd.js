@@ -14,18 +14,20 @@ function get_jlist() {
 
 	$.ajax({
 
-		url: 'https://www.iptm.ru/int/addarticle.ru.html',
-		crossDomain: true,
-		// headers: {
-		// 	'Origin': '*'
-		// },
-		// type: 'GET',
-		// dataType: 'json',
-		// data: $(form).serialize(),
+		url: 'http://localhost/~grimax/srvcs/prnd.php',
 
 		success: function(data){
 
-			console.log(data);
+			var jlist = $('<list />').attr('id', 'jlist');
+
+			$(jlist).append(function(){
+
+				// console.log($.parseXML(data));
+				return $(data).find('select');
+
+			});
+
+			console.log(jlist);
 
 		}
 

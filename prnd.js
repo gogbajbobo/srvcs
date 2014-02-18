@@ -25,8 +25,8 @@ function get_jlist() {
 			$(jlist).append(function(){
 
 				// console.log($.parseXML(data));
-				// return $(data).find('option').text();
-				return $(data);
+				return $(data).find('option').text();
+				// return $(data);
 
 			});
 

@@ -6,11 +6,14 @@ $(document).ready(function() {
 
 function doc_ready() {
 
-	get_jlist();
+	jlist_array = get_jlist();
+	console.log(jlist_array);
 
 }
 
 function get_jlist() {
+
+	var jlist_array = {};
 
 	$.ajax({
 
@@ -18,32 +21,22 @@ function get_jlist() {
 
 		success: function(data){
 
-			var jlist = $('<list />').attr('id', 'jlist');
-
-			$(jlist).append(function(){
-
-				$(data).find('option').each(function(index) {
-					 
-					console.log(index + ': ' + $(this).text() + ' / ' + $(this).attr('value'));
-
-				});
-				return $(data).find('option').text();
+			$(data).find('option').each(function(index) {
+				 
+				jlist_array[$(this).attr('value')] = $(this).text();
 
 			});
-
-			console.log($(jlist));
 
 		}
 
 	})
-		.done(function(){
-			// alert('done');
-		})
 		
 		.fail(function(jqXHR, textStatus, errorThrown){
 
 			console.log(textStatus);
 
 		});
+
+	return jlist_array;
 
 }

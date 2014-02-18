@@ -14,7 +14,9 @@ function get_jlist() {
 
 	$.ajax({
 
-		url: 'http://localhost/~grimax/srvcs/prnd.php',
+		// url: 'http://localhost/~grimax/srvcs/prnd.php',
+		// url: 'http://www.iptm.ru/index.ru.html',
+		url: 'http://www.unact.ru',
 
 		success: function(data){
 
@@ -23,11 +25,12 @@ function get_jlist() {
 			$(jlist).append(function(){
 
 				// console.log($.parseXML(data));
-				return $(data).find('select');
+				// return $(data).find('option').text();
+				return $(data);
 
 			});
 
-			console.log(jlist);
+			console.log(data);
 
 		}
 
@@ -38,7 +41,7 @@ function get_jlist() {
 		
 		.fail(function(jqXHR, textStatus, errorThrown){
 
-			// 
+			console.log(textStatus);
 
 		});
 

@@ -2,8 +2,8 @@ $(document).ready(function() {
 
 	$.ajax({
 
-		// url: 'http://search.crossref.org',
-		url: 'http://www.unact.ru',
+		url: 'http://search.crossref.org',
+		// url: 'http://www.unact.ru',
 
 		success: function(data){
 

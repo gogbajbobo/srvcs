@@ -15,8 +15,6 @@ function get_jlist() {
 	$.ajax({
 
 		url: 'http://localhost/~grimax/srvcs/prnd.php',
-		// url: 'http://www.iptm.ru/index.ru.html',
-		// url: 'http://www.unact.ru',
 
 		success: function(data){
 
@@ -24,9 +22,12 @@ function get_jlist() {
 
 			$(jlist).append(function(){
 
-				// console.log($.parseXML(data));
+				$(data).find('option').each(function(index) {
+					 
+					console.log(index + ': ' + $(this).text() + ' / ' + $(this).attr('value'));
+
+				});
 				return $(data).find('option').text();
-				// return $(data);
 
 			});
 

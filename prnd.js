@@ -14,9 +14,9 @@ function get_jlist() {
 
 	$.ajax({
 
-		// url: 'http://localhost/~grimax/srvcs/prnd.php',
+		url: 'http://localhost/~grimax/srvcs/prnd.php',
 		// url: 'http://www.iptm.ru/index.ru.html',
-		url: 'http://www.unact.ru',
+		// url: 'http://www.unact.ru',
 
 		success: function(data){
 

@@ -30,7 +30,7 @@ function get_jlist() {
 
 			});
 
-			console.log(data);
+			console.log($(jlist));
 
 		}
 

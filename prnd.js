@@ -6,14 +6,11 @@ $(document).ready(function() {
 
 function doc_ready() {
 
-	jlist_array = get_jlist();
-	console.log(jlist_array);
+	get_jlist();
 
 }
 
 function get_jlist() {
-
-	var jlist_array = {};
 
 	$.ajax({
 
@@ -21,11 +18,15 @@ function get_jlist() {
 
 		success: function(data){
 
+			var jlist = {};
+
 			$(data).find('option').each(function(index) {
 				 
-				jlist_array[$(this).attr('value')] = $(this).text();
+				jlist[$(this).attr('value')] = $.trim($(this).text());
 
 			});
+
+			parse_list(jlist);
 
 		}
 
@@ -37,6 +38,20 @@ function get_jlist() {
 
 		});
 
-	return jlist_array;
+}
+
+function parse_list (jlist) {
+
+	var test_string = 'nature';
+
+	$.each(jlist, function(key, value){
+
+		if (value.toLowerCase().indexOf(test_string) >= 0) {
+
+			console.log(key + ' : ' + value);
+
+		}
+
+	})
 
 }

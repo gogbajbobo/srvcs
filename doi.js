@@ -45,7 +45,10 @@ function form_submit(form) {
 
 	$(form).submit(function(event) {
 		event.preventDefault();
-		send_form(this);
+		if ($('input:submit')) {
+			$('input:submit').replaceWith($('<img src="ajax-loader.gif" />'));
+			send_form(this);			
+		}
 	});
 
 }

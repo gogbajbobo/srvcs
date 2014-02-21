@@ -51,7 +51,7 @@ if (isset($_GET['doi']) && !empty($_GET['doi'])) {
 		$coins = explode('&', $coins);
 		echo 'COINS: <br />';
 
-		$authors = '';
+		$authors = [];
 
 		foreach ($coins as $coin) {
 
@@ -87,7 +87,7 @@ if (isset($_GET['doi']) && !empty($_GET['doi'])) {
 			 		break;
 			 	case 'rft.au':
 			 		$value_title = 'Author: ';
-			 		$authors == '' ? $authors = $coin[1] : $authors = $authors . ', ' . $coin[1];
+			 		$authors[] = $coin[1];
 			 		break;
 			 	default:
 			 		break;
@@ -102,8 +102,8 @@ if (isset($_GET['doi']) && !empty($_GET['doi'])) {
 		}
 
 		if ($authors != '') {
-			echo '<b>Authors: </b>' . $authors . '<br />';
-			echo '<b>Number of authors: </b>' . count(explode(',', $authors)) . '<br /><br />';
+			echo '<b>Authors: </b>' . implode(',', $authors) . '<br />';
+			echo '<b>Number of authors: </b>' . count($authors) . '<br /><br />';
 		}
 
 		// echo '<br /> var_dump: <br />';

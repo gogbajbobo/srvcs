@@ -6,11 +6,11 @@ $(document).ready(function() {
 
 function doc_ready() {
 
-	get_jlist();
+	form_submit(insert_form());
 
 }
 
-function get_jlist() {
+function get_jlist(find_journal) {
 
 	$.ajax({
 
@@ -26,7 +26,7 @@ function get_jlist() {
 
 			});
 
-			parse_list(jlist);
+			find_journal(jlist);
 
 		}
 
@@ -40,18 +40,31 @@ function get_jlist() {
 
 }
 
-function parse_list (jlist) {
+function send_result_form(form) {
 
-	var test_string = 'nature';
+	// console.log('prnd send_result_form');
+	// console.log(form);
 
-	$.each(jlist, function(key, value){
+	find_journal_in_list($('form input[name="jtitle"]').attr('value'));
 
-		if (value.toLowerCase().indexOf(test_string) >= 0) {
+}
 
-			console.log(key + ' : ' + value);
+function find_journal_in_list (jtitle) {
 
-		}
+	get_jlist(function(jlist){
 
-	})
+		$.each(jlist, function(key, value){
+
+			if (value.toLowerCase().indexOf(jtitle.toLowerCase()) >= 0) {
+
+				console.log(key + ' : ' + value);
+
+			}
+
+		});
+
+		console.log('finish search for ' + jtitle);
+
+	});
 
 }

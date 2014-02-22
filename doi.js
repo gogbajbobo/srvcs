@@ -45,7 +45,10 @@ function form_submit(form) {
 
 	$(form).submit(function(event) {
 		event.preventDefault();
-		send_form(this);
+		if ($('input:submit')) {
+			$('input:submit').replaceWith($('<img src="ajax-loader.gif" />'));
+			send_form(this);			
+		}
 	});
 
 }
@@ -166,6 +169,15 @@ function result_inputs(data) {
 					type: 'text',
 					name: 'spage',
 					value: coins['rft.spage']
+				})
+			),
+
+			$('<label />').append(
+				'End page: ',
+				$('<input />').attr({
+					type: 'text',
+					name: 'epage',
+					value: coins['rft.epage']
 				})
 			),
 

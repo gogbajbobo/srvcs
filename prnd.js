@@ -72,16 +72,28 @@ function find_journal_in_list (jtitle) {
 			console.log(Object.keys(result)[0]);
 
 			$('form#result_form').append(
-				$('<input />').attr({
-					type: 'hidden',
-					name: 'num_mag',
-					value: Object.keys(result)[0]
-				})
+				[
+					$('<input />').attr({
+						type: 'hidden',
+						name: 'num_mag',
+						value: Object.keys(result)[0]
+					}),
+
+					$('<input />').attr({
+						type: 'hidden',
+						name: 'art_tit',
+						value: 'ВВОД'
+					})
+				]
 			);
 
 			send_prnd_data();
 
-		};
+		} else {
+
+			console.log('journal name not unique or not found');
+
+		}
 
 	});
 
@@ -97,7 +109,11 @@ function send_prnd_data() {
 
 		success: function(data){
 
-			console.log(data);
+			var html_data = $('<div />');
+			html_data.append($.parseHTML(data));
+			var result = html_data.find('center').text();
+			console.log(result);
+			show_result(result);
 
 		},
 
@@ -110,4 +126,23 @@ function send_prnd_data() {
 	})
 		
 }
+
+function show_result(result) {
+
+	$('body').empty();
+	$('body').append($('<span />').addClass('result').text(result));
+	$('body').append(
+		$('<input />').attr({
+			type: 'submit',
+			autofocus: 'autofocus',
+			value: 'OK'
+		}).click(function(){
+			$('body').empty();
+			form_submit(insert_form());
+		})
+	);
+
+}
+
+
 

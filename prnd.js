@@ -53,18 +53,61 @@ function find_journal_in_list (jtitle) {
 
 	get_jlist(function(jlist){
 
+		var result = {};
+
 		$.each(jlist, function(key, value){
 
 			if (value.toLowerCase().indexOf(jtitle.toLowerCase()) >= 0) {
 
-				console.log(key + ' : ' + value);
+				result[key] = value;
 
 			}
 
 		});
 
-		console.log('finish search for ' + jtitle);
+		console.log('finish search for "' + jtitle + '" with ' + Object.keys(result).length + ' result');
+
+		if (Object.keys(result).length == 1) {
+
+			console.log(Object.keys(result)[0]);
+
+			$('form#result_form').append(
+				$('<input />').attr({
+					type: 'hidden',
+					name: 'num_mag',
+					value: Object.keys(result)[0]
+				})
+			);
+
+			send_prnd_data();
+
+		};
 
 	});
 
 }
+
+function send_prnd_data() {
+
+	$.ajax({
+
+		url: 'http://localhost/~grimax/srvcs/prnd.php',
+		type: 'POST',
+		data: $('form#result_form').serialize(),
+
+		success: function(data){
+
+			console.log(data);
+
+		},
+
+		error: function(jqXHR, textStatus, errorThrown){
+
+			console.log(textStatus);
+
+		}
+
+	})
+		
+}
+

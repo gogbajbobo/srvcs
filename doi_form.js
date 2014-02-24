@@ -121,7 +121,7 @@ function result_inputs(data) {
 				'Article title: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'atitle',
+					name: 'tit_art',
 					value: coins['rft.atitle']
 				})
 			),
@@ -139,7 +139,7 @@ function result_inputs(data) {
 				'Date: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'date',
+					name: 'year_izd',
 					value: coins['rft.date']
 				})
 			),
@@ -148,7 +148,7 @@ function result_inputs(data) {
 				'Issue: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'issue',
+					name: 'numb',
 					value: coins['rft.issue']
 				})
 			),
@@ -166,7 +166,7 @@ function result_inputs(data) {
 				'Start page: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'spage',
+					name: 'page',
 					value: coins['rft.spage']
 				})
 			),
@@ -202,7 +202,7 @@ function result_inputs(data) {
 				'Number of authors: ',
 				$('<input />').attr({
 					type: 'text',
-					name: 'number_of_authors',
+					name: 'num_au',
 					value: coins['number_of_authors']
 				})
 			),

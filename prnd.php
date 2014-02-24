@@ -2,7 +2,11 @@
 
 include 'authorization.php';
 
-header('Content-Type: text/html');
+$postData = file_get_contents('php://input');
+
+if (!$postData) {
+
+	header('Content-Type: text/html');
 
 	$opts = array(
 		'http'=>array(
@@ -14,5 +18,11 @@ header('Content-Type: text/html');
 	$context = stream_context_create($opts);
 	$file = file_get_contents('https://www.iptm.ru/int/addarticle.ru.html', false, $context);
 	echo mb_convert_encoding($file, 'UTF-8', 'KOI8-R');
+
+} else {
+
+	echo $postData;
+
+}
 
 ?>

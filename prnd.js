@@ -89,9 +89,15 @@ function find_journal_in_list (jtitle) {
 
 			send_prnd_data();
 
-		} else {
+		} else if (Object.keys(result).length > 1) {
 
-			console.log('journal name not unique or not found');
+			console.log('journal name not unique');
+			console.log(result);
+
+		} else if (Object.keys(result).length == 0) {
+
+			console.log('journal name not found');
+			journal_search(jtitle, jlist);
 
 		}
 
@@ -144,5 +150,19 @@ function show_result(result) {
 
 }
 
+function journal_search(jtitle, jlist) {
 
+	console.log(jtitle, jlist);
+
+	var result = {};
+
+	$.each(jlist, function(key, value){
+
+		result[key] = value;
+
+	});
+
+	console.log(result);
+
+}
 

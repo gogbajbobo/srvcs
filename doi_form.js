@@ -12,7 +12,7 @@ function insert_form() {
 				name: 'q',
 				autofocus: 'autofocus',
 // 
-				value: '10.1063/1.1332401'
+				value: '10.7567/JJAP.53.010201'
 // 
 			})
 		),
@@ -93,11 +93,15 @@ function show_result_form(data) {
 	$('input:text').each(function(){
 		$(this).attr({
 			size: this.value.length
-		})
+		});
+		if ($(this).attr('name') == 'jtitle') {
+			$(this).change(function(){
+				$(this).attr('value', $(this).val());
+			});
+		}
 	});
 
 	form_submit(form);
-
 }
 
 function result_inputs(data) {
